@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:kmerpay_seller/auth/presentation/pages/otp_screen.dart';
 import 'package:kmerpay_seller/auth/presentation/pages/sign_up_screen.dart';
+import 'package:kmerpay_seller/resources/widgets/kpbutton.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
@@ -9,6 +10,8 @@ import '../../../resources/styles.dart';
 import '../widgets/search_field_widget.dart';
 import 'forgot_password_screen.dart';
 import 'landing_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -28,6 +31,8 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   void initState() {
     super.initState();
+    _emailControllerFocus.addListener(() => setState(() {}));
+    _passwordControllerFocus.addListener(() => setState(() {}));
   }
 
   @override
@@ -47,36 +52,49 @@ class _SignInScreenState extends State<SignInScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          sizeVer(140),
-                          Text("Welcome Back",
-                              style: getTextStyle(
-                                  24, FontWeight.w700, ColorManager.deepBlack)),
+                          sizeVer(96),
+                          Center(
+                              child: SvgPicture.asset(
+                            AssetConstant.loginIcon,
+                            height: 140,
+                          )),
+                          sizeVer(64),
+                          Text("Hello! Welcome Back",
+                              style: getSemiBoldStyle(
+                                fontSize: 26,
+                                color: ColorManager.primaryBlack,
+                              )),
                           Text(
-                              "Sign in to Continue",
-                              style: getTextStyle(
-                                  14, FontWeight.w400, ColorManager.grayLight)),
+                            "Please Login to Your Account",
+                            style: getMediumStyle(
+                                fontSize: 18, color: ColorManager.bluishGrey),
+                          ),
                           sizeVer(40),
-
                           SearchWidget(
                             controller: _emailController,
+                            focusNode: _emailControllerFocus,
                             prefixIcon: Icon(
-                              FeatherIcons.send,
-                              color: ColorManager.deepBlack,
+                              PhosphorIcons.envelope,
+                              color: ColorManager.offWhite,
                             ),
-                            border: Border.all(color: ColorManager.grayBorder),
+                            border: Border.all(color: ColorManager.offWhite),
                             backgroundColor: Colors.white,
                             isEnabled: true,
                             hintText: 'email',
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                                borderSide: BorderSide(color: Colors.blue)),
                           ),
                           sizeVer(16),
-
                           SearchWidget(
                             controller: _passwordController,
+                            focusNode: _passwordControllerFocus,
                             obscureText:
-                            isPasswordVisible == false ? true : false,
+                                isPasswordVisible == false ? true : false,
                             prefixIcon: Icon(
-                              FeatherIcons.key,
-                              color: ColorManager.deepBlack,
+                              PhosphorIcons.lock,
+                              color: ColorManager.offWhite,
                             ),
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -86,97 +104,55 @@ class _SignInScreenState extends State<SignInScreen> {
                               },
                               icon: isPasswordVisible == false
                                   ? Icon(
-                                FeatherIcons.eyeOff,
-                                color: ColorManager.deepBlack,
-                              )
+                                      PhosphorIcons.lock,
+                                      color: ColorManager.deepBlack,
+                                    )
                                   : Icon(
-                                FeatherIcons.eye,
-                                color: ColorManager.deepBlack,
-                              ),
+                                      FeatherIcons.eyeOff,
+                                      color: ColorManager.primaryBlue,
+                                    ),
                             ),
-                            border: Border.all(color: ColorManager.grayBorder),
+                            border: Border.all(color: ColorManager.offWhite),
                             backgroundColor: Colors.white,
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                                borderSide: BorderSide(color: Colors.blue)),
                             isEnabled: true,
-                            hintText: 'password',
+                            hintText: 'passcode',
                           ),
-
-                          sizeVer(16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        fullscreenDialog: true,
-                                        builder: (context) =>
-                                        const ForgotPasswordScreen(), //const LandingScreen(),
-                                      ));
-                                },
-                                child: Text("Forgot Password",
-                                    style: getTextStyle(14, FontWeight.w400,
-                                        ColorManager.blueTextColor)),
-                              ),
-
-                            ],
+                          sizeVer(20),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    fullscreenDialog: true,
+                                    builder: (context) =>
+                                        const OTPScreen(), //const LandingScreen(),
+                                  ));
+                            },
+                            child: Text("Forgot Passcode",
+                                style: getMediumStyle(
+                                    fontSize: 14,
+                                    color: ColorManager.primaryBlue)),
                           ),
                           sizeVer(40),
-                          Container(
-                            height: 52,
-                            margin: EdgeInsets.all(40),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: ColorManager.brandColor,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(4)),
-                            ),
-                            child: TextButton(
-                              child: Text(
-                                "Sign In",
-                                style: getTextStyle(
-                                    16, FontWeight.w600, Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      fullscreenDialog: true,
-                                      builder: (context) =>
-                                      const LandingScreen(), //const LandingScreen(),
-                                    ));
-                              },
-                              // textColor: Colors.white,
-                              // shape: RoundedRectangleBorder(
-                              //   borderRadius: BorderRadius.circular(25),
-                              // ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Don’t have an account ? ",
-                                  style: getTextStyle(14, FontWeight.w400,
-                                      ColorManager.grayLight)),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        fullscreenDialog: true,
-                                        builder: (context) =>
-                                        const SignUpScreen(), //const LandingScreen(),
-                                      ));
-                                },
-                                child: Text("Sign Up",
-                                    style: getTextStyle(14, FontWeight.w600,
-                                        ColorManager.brandColor)),
-                              ),
-                            ],
+                          CustomButton(
+                            buttonTitle: 'Login',
+                            onPressed: () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const LandingScreen();
+                                  },
+                                ),
+                                (_) => false,
+                              );
+                            },
                           ),
                           sizeVer(40),
-
                         ],
                       ),
                     ),

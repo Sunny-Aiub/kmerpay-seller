@@ -1,12 +1,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:kmerpay_seller/auth/presentation/pages/sign_in_screen.dart';
+import 'package:kmerpay_seller/resources/widgets/success_screen.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
 import '../../../resources/styles.dart';
+import '../../../resources/widgets/kpbutton.dart';
 import '../widgets/search_field_widget.dart';
 import 'landing_screen.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   const NewPasswordScreen({Key? key}) : super(key: key);
@@ -19,10 +24,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   var _formKey = new GlobalKey<FormState>();
   var _emailController = TextEditingController();
   var _emailControllerFocus = FocusNode();
-  var _passwordController = TextEditingController();
-  var _passwordControllerFocus = FocusNode();
-  bool isNewPasswordVisible = false;
-  bool isPasswordVisible = false;
+  var _passcodeController = TextEditingController();
+  var _passcodeControllerFocus = FocusNode();
+  bool isNewpasscodeVisible = false;
+  bool ispasscodeVisible = false;
 
   @override
   void initState() {
@@ -46,110 +51,103 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          sizeVer(140),
-                          Text("Set a New Password",
-                              style: getTextStyle(
-                                  24, FontWeight.w700, ColorManager.deepBlack)),
+                          sizeVer(96),
+                          Center(child: SvgPicture.asset(AssetConstant.codeVerifiedIcon,height: 140,)),
+                          sizeVer(64),
+                          Text("Code Verified",
+                              style: getSemiBoldStyle( fontSize: 26, color: ColorManager.primaryBlack,)),
                           Text(
-                              "Your new password must be different from previously used password.",
-                              style: getTextStyle(
-                                  14, FontWeight.w400, ColorManager.grayLight)),
+                            "Please set a new passcode",
+                            style:getMediumStyle(fontSize: 18, color: ColorManager.bluishGrey),),
                           sizeVer(40),
 
+                          Text(
+                            "New Passcode",
+                            style:getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),),
+                          sizeVer(4),
 
                           SearchWidget(
-                            controller: _passwordController,
-                            obscureText:
-                            isPasswordVisible == false ? true : false,
+                            controller: _emailController,
+                            focusNode: _emailControllerFocus,
                             prefixIcon: Icon(
-                              FeatherIcons.key,
-                              color: ColorManager.deepBlack,
+                              PhosphorIcons.envelope,
+                              color: ColorManager.offWhite,
+                            ),
+                            border: Border.all(color: ColorManager.offWhite),
+                            backgroundColor: Colors.white,
+                            isEnabled: true,
+                            hintText: 'At least 6 characters',
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                borderSide: BorderSide(color: Colors.blue)),
+                          ),
+                          sizeVer(16),
+
+                          Text(
+                            "Retype new passcode",
+                            style:getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),),
+                          sizeVer(4),
+
+                          SearchWidget(
+                            controller: _passcodeController,
+                            focusNode: _passcodeControllerFocus,
+                            obscureText:
+                            ispasscodeVisible == false ? true : false,
+                            prefixIcon: Icon(
+                              PhosphorIcons.lock,
+                              color: ColorManager.offWhite,
                             ),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  isPasswordVisible = !isPasswordVisible;
+                                  ispasscodeVisible = !ispasscodeVisible;
                                 });
                               },
-                              icon: isPasswordVisible == false
+                              icon: ispasscodeVisible == false
                                   ? Icon(
-                                FeatherIcons.eyeOff,
-                                color: ColorManager.deepBlack,
+                                PhosphorIcons.eye,
+                                color: ColorManager.offWhite,
                               )
                                   : Icon(
-                                FeatherIcons.eye,
-                                color: ColorManager.deepBlack,
-                              ),
-                            ),
-                            border: Border.all(color: ColorManager.grayBorder),
-                            backgroundColor: Colors.white,
-                            isEnabled: true,
-                            hintText: 'new password',
-                          ),
-
-                          sizeVer(16),
-                          SearchWidget(
-                            controller: _passwordController,
-                            obscureText:
-                            isNewPasswordVisible == false ? true : false,
-                            prefixIcon: Icon(
-                              FeatherIcons.key,
-                              color: ColorManager.deepBlack,
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isNewPasswordVisible = !isNewPasswordVisible;
-                                });
-                              },
-                              icon: isNewPasswordVisible == false
-                                  ? Icon(
                                 FeatherIcons.eyeOff,
-                                color: ColorManager.deepBlack,
-                              )
-                                  : Icon(
-                                FeatherIcons.eye,
-                                color: ColorManager.deepBlack,
+                                color: ColorManager.primaryBlue,
                               ),
                             ),
-                            border: Border.all(color: ColorManager.grayBorder),
+                            border: Border.all(color: ColorManager.offWhite),
                             backgroundColor: Colors.white,
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                borderSide: BorderSide(color: Colors.blue)),
                             isEnabled: true,
-                            hintText: 'confirm new password',
+                            hintText: 'passcode need to be matched',
                           ),
-                          sizeVer(16),
 
-                          Container(
-                            height: 52,
-                            margin: EdgeInsets.all(40),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: ColorManager.brandColor,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(4)),
-                            ),
-                            child: TextButton(
-                              child: Text(
-                                "Proceed",
-                                style: getTextStyle(
-                                    16, FontWeight.w600, Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      fullscreenDialog: true,
-                                      builder: (context) =>
-                                      const LandingScreen(), //const LandingScreen(),
-                                    ));
-                              },
-                              // textColor: Colors.white,
-                              // shape: RoundedRectangleBorder(
-                              //   borderRadius: BorderRadius.circular(25),
-                              // ),
-                            ),
+
+                          sizeVer(40),
+                          CustomButton(buttonTitle: 'Submit',
+                            onPressed: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    fullscreenDialog: true,
+                                    builder: (context) => SuccessWidget(title: "Code Changed",
+                                        subTitle: "Please login with your new passcode",
+                                        imageString: AssetConstant.logoIcon,
+                                        actionTitleString: 'Go to login',
+                                      onPressed: (){
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              fullscreenDialog: true,
+                                              builder: (context) =>
+                                              const SignInScreen(), //const LandingScreen(),
+                                            ));
+                                      },
+                                    ), //const LandingScreen(),
+                                  ));
+                            },
                           ),
-                           sizeVer(40),
+                          sizeVer(40),
 
                         ],
                       ),
@@ -158,6 +156,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                 ]),
               ),
             ]),
+            IconButton(onPressed: ()=> Navigator.pop(context ),
+                icon: const Icon(PhosphorIcons.arrow_left)),
           ],
         ),
       ),

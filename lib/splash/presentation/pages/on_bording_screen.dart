@@ -103,7 +103,17 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
           // ),
            CustomButton(
              buttonTitle: 'Get Started',color: ColorManager.primaryBlue,width: 120,
+             margin: EdgeInsets.all(40),
              trailing: Icon(PhosphorIcons.arrow_right,color: Colors.white,),
+             onPressed: (){
+               Navigator.pushReplacement(
+                   context,
+                   MaterialPageRoute(
+                     fullscreenDialog: true,
+                     builder: (context) =>
+                     const SignInScreen(), //const LandingScreen(),
+                   ));
+             },
            )
         ],
       ),

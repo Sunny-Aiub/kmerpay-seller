@@ -12,13 +12,18 @@ class SearchWidget extends StatelessWidget {
   final Color? backgroundColor;
   final BoxBorder? border;
   final Icon? prefixIcon;
-  final IconButton? suffixIcon;
+  final Widget? suffixIcon;
   final String? hintText;
   final bool? obscureText;
   void Function(String)? onChanged;
+  final FocusNode? focusNode;
 
-  SearchWidget({Key? key, required this.controller, required this.isEnabled, this.backgroundColor,
-    this.border, this.prefixIcon, this.hintText,this.onChanged,this.suffixIcon,this.obscureText}) : super(key: key);
+  final InputBorder? focusedBorder;
+
+  final TextInputType? keyboardType;
+
+  SearchWidget({Key? key, required this.controller, required this.isEnabled, this.backgroundColor,this.focusNode,
+    this.border, this.prefixIcon, this.hintText,this.onChanged,this.suffixIcon,this.obscureText,this.focusedBorder, this.keyboardType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +33,32 @@ class SearchWidget extends StatelessWidget {
       decoration: BoxDecoration(
           color: backgroundColor ?? Colors.white,
           borderRadius: BorderRadius.circular(4),
-          border:  border
+          boxShadow: (focusNode?.hasFocus == true) ? [
+            BoxShadow(
+              color: ColorManager.primaryBlue.withOpacity(0.18),
+              offset: Offset(0, 6),
+              blurRadius: 20,
+              spreadRadius: 0,
+            )
+          ]: null
+          // border:  (focusedBorder != null)? null :border
       ),
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,
-        enabled: isEnabled,
+        enabled: isEnabled,keyboardType: keyboardType ?? TextInputType.text,
+        focusNode: focusNode,
         obscureText: obscureText ?? false,
-        style:getTextStyle(14, FontWeight.w400, ColorManager.grayLight),
+        style:getRegularStyle(fontSize: 14,color: ColorManager.silver),
         decoration: InputDecoration(
-            border: InputBorder.none,
+            border: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                borderSide: BorderSide(color: ColorManager.offWhite)),
+            focusedBorder: focusedBorder,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             contentPadding: const EdgeInsets.all(12.0),
+            hintStyle: getRegularStyle(fontSize: 12,color: ColorManager.silver),
             hintText: hintText ?? "Search here",
             // hintStyle: getRegularStyle(
             //     fontSize: 14,color: ColorManager.gray400

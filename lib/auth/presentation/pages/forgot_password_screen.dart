@@ -8,7 +8,7 @@ import '../../../resources/constants.dart';
 import '../../../resources/styles.dart';
 import '../widgets/search_field_widget.dart';
 import 'otp_screen.dart';
-
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
 
@@ -29,6 +29,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,13 +48,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           sizeVer(140),
-                          Text("Find your Examtice account",
-                              style: getTextStyle(
-                                  24, FontWeight.w700, ColorManager.deepBlack)),
+                          Text("Verification Code Sent",
+                              style: getSemiBoldStyle(fontSize: 26, color: ColorManager.primaryBlack)),
                           Text(
-                              "Enter the email associated with your account to reset your password.",
-                              style: getTextStyle(
-                                  14, FontWeight.w400, ColorManager.grayLight)),
+                              "Please type in the code here",
+                              style: getMediumStyle(fontSize: 18, color: ColorManager.bluishGrey)),
+
                           sizeVer(40),
 
                           SearchWidget(
@@ -131,6 +131,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ]),
               ),
             ]),
+            IconButton(onPressed: ()=> Navigator.pop(context ),
+                icon: Icon(PhosphorIcons.arrow_left)),
           ],
         ),
       ),

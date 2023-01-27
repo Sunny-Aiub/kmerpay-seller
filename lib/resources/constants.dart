@@ -11,6 +11,17 @@ Widget sizeHor(double width) {
   return SizedBox(width: width);
 }
 
+Widget verticalDivider({ EdgeInsets? padding}){
+  return Padding(
+    padding: padding ?? const EdgeInsets.symmetric(
+        horizontal: 24.0, vertical: 20),
+    child: Container(
+      color: ColorManager.offWhite,
+      height: 1,
+    ),
+  );
+}
+
 class PaddingConstant{
   static const  v12h16symmetricPadding = EdgeInsets.symmetric(vertical: 12,horizontal: 16);
   static const  h16Padding = EdgeInsets.symmetric(vertical: 0,horizontal: 16);
@@ -72,18 +83,22 @@ class AssetConstant {
   static const String logoIcon = "assets/icons/logo.svg";
   static const String splashIcon = "assets/icons/splash-icon.svg";
   static const String splashImage = "assets/images/splash.jpg";
+  static const String loginIcon = "assets/icons/login_icon.svg";
+  static const String codeVerifiedIcon = "assets/icons/code_verified_icon.svg";
+  static const String successIcon = "assets/icons/success_icon.svg";
 
   static const String slider1 = "assets/images/onbording_sliders/slider1.png";
   static const String slider2 = "assets/images/onbording_sliders/slider2.png";
   static const String slider3 = "assets/images/onbording_sliders/slider3.png";
 
-
   ///home
   static const String examIcon = "assets/icons/home/Exam.svg";
   static const String studentIcon = "assets/icons/home/Student.svg";
   static const String examBack = "assets/icons/home/Exam Card Abstract shape.svg";
+  static const String barcodeIcon = "assets/icons/barcode.svg";
 
   static const String deleteIcon = "assets/icons/delete.svg";
+
   static const String circleIcon = "assets/icons/circle.png";
   static const String profileBackgroundImage = "assets/images/Profile.png";
 

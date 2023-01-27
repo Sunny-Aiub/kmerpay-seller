@@ -37,7 +37,7 @@ class ColorManager {
   static Color bluishGrey = HexColor.fromHex("#676F85");
   static Color silver = HexColor.fromHex("#9AA0AD");
   static Color offWhite = HexColor.fromHex("#DFDFDF");
-
+  static Color lightWhite = HexColor.fromHex("#FCFCFC");
   static Color backBlue = HexColor.fromHex("#4E6FE8");
 
 }

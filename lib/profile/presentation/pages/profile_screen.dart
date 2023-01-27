@@ -23,60 +23,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorManager.uiBackgroundColor,
+        backgroundColor: ColorManager.lightWhite,
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: ColorManager.lightWhite,
+          title: Text(
+            'My Profile',
+            style: getSemiBoldStyle(
+                fontSize: 20, color: ColorManager.primaryBlack),
+          ),
+        ),
         body: Stack(
           children: [
             CustomScrollView(slivers: [
               SliverToBoxAdapter(
-                child: Container(
-                  height: 320,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: ColorManager.brandColor,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      image: DecorationImage(
-                        alignment: Alignment.centerRight,
-                        image: AssetImage(AssetConstant.profileBackgroundImage),
-                        fit: BoxFit.contain,
-                      )),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.green,
-                        radius: 43,
-                      ),
-                      sizeVer(16),
-                      Text(
-                        'James Cameron',
-                        style: getTextStyle(24, FontWeight.w600, Colors.white),
-                      ),
-                      Text(
-                        'James.cameron@gmail.com',
-                        style: getTextStyle(16, FontWeight.w400, Colors.white),
-                      ),
-                      Text(
-                        '+880 65245 21',
-                        style: getTextStyle(16, FontWeight.w400, Colors.white),
-                      ),
-                      sizeVer(16),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Edit Profile',
-                            textAlign: TextAlign.center,
-                            style: getTextStyle(
-                                16, FontWeight.w400, ColorManager.brandColor),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    sizeVer(40),
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 43,
+                      child: Image.asset('assets/images/human.png'),
+                    ),
+                    sizeVer(16),
+                    Text('John Doe',
+                        style: getSemiBoldStyle(
+                            fontSize: 14, color: ColorManager.primaryBlack)),
+                    Text('johndoe@gmail.com',
+                        style: getRegularStyle(
+                            fontSize: 16,
+                            color: ColorManager.bluishGrey)),
+
+                    sizeVer(16),
+                    Container(
+                      width: 160,height: 40,
+                      decoration: BoxDecoration(
+                          color: ColorManager.primaryBlue,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(PhosphorIcons.pencil_line,color: ColorManager.primaryWhite,),
+                          Text('Edit Profile',
+                              style: getRegularStyle(
+                                  fontSize: 16,
+                                  color: ColorManager.primaryWhite)),
+
+                        ],
+                      )
+                    ),
+                    verticalDivider(),
+                  ],
                 ),
               ),
 
@@ -84,49 +84,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 16),
+                      horizontal: 16.0, vertical: 0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8),
+                          horizontal: 8.0, vertical: 0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'General',
-                              style: getTextStyle(
-                                  16, FontWeight.w400, ColorManager.grayLight),
-                            ),
+                          ///email
+                          Text(
+                            'Email address',
+                            style: getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 0),
-                            child: Container(
-                              color: ColorManager.grey4,
-                              height: 1,
-                            ),
+                          Text(
+                            'johndoe@gmail.com',
+                            style: getRegularStyle(fontSize: 16, color: ColorManager.primaryBlack),
                           ),
-                          ListTile(
-                            leading: Icon(
-                              PhosphorIcons.password,
-                              color: ColorManager.brandColor,
-                            ),
-                            trailing: Icon(
-                              Icons.chevron_right,
-                              color: ColorManager.deepBlack,
-                            ),
-                            title: Text(
-                              'Change Password',
-                              style: getTextStyle(
-                                  16, FontWeight.w400, ColorManager.grayLight),
-                            ),
-                          )
+                          verticalDivider(padding:EdgeInsets.symmetric(vertical: 20)),
+
+                          ///mobile
+                          Text(
+                            'Mobile number',
+                            style: getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),
+                          ),
+                          Text(
+                            '+237 123 123 1234',
+                            style: getRegularStyle(fontSize: 16, color: ColorManager.primaryBlack),
+                          ),
+                          verticalDivider(padding:EdgeInsets.symmetric(vertical: 20)),
+
+                          ///Address
+                          Text(
+                            'Address',
+                            style: getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),
+                          ),
+                          Text(
+                            'House:5, Road: 15, Block: B, Southside',
+                            style: getRegularStyle(fontSize: 16, color: ColorManager.primaryBlack),
+                          ),
+                          verticalDivider(padding:EdgeInsets.symmetric(vertical: 20)),
+
                         ],
                       ),
                     ),
@@ -134,131 +135,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
 
-              ///Preference
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 16),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Preference',
-                              style: getTextStyle(
-                                  16, FontWeight.w400, ColorManager.grayLight),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 0),
-                            child: Container(
-                              color: ColorManager.grey4,
-                              height: 1,
-                            ),
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              PhosphorIcons.bell,
-                              color: ColorManager.brandColor,
-                            ),
-                            trailing: (isAlertOn == false)
-                                ? Icon(
-                                    Icons.toggle_off_outlined,
-                                    color: ColorManager.grayLight,
-                                  )
-                                : Icon(
-                                    Icons.toggle_on_outlined,
-                                    color: ColorManager.brandColor,
-                                  ),
-                            title: Text(
-                              'Examination Alert',
-                              style: getTextStyle(
-                                  16, FontWeight.w400, ColorManager.grayLight),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 0),
-                            child: Container(
-                              color: ColorManager.grey4,
-                              height: 1,
-                            ),
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              PhosphorIcons.moon,
-                              color: ColorManager.brandColor,
-                            ),
-                            trailing: (isDarkModeOn == false)
-                                ? Icon(
-                                    Icons.toggle_off_outlined,
-                                    color: ColorManager.grayLight,
-                                  )
-                                : Icon(
-                                    Icons.toggle_on_outlined,
-                                    color: ColorManager.brandColor,
-                                  ),
-                            title: Text(
-                              'Dark',
-                              style: getTextStyle(
-                                  16, FontWeight.w400, ColorManager.grayLight),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+
 
               SliverToBoxAdapter(
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8),
-                      child: ListTile(
-                        leading: Icon(
-                          PhosphorIcons.phone_call,
-                          color: ColorManager.brandColor,
-                        ),
-                        title: Text(
-                          'Support',
-                          style: getTextStyle(
-                              16, FontWeight.w400, ColorManager.grayLight),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8),
+                          horizontal: 0.0, vertical: 8),
                       child: ListTile(
                         onTap: () {
                           Navigator.of(context, rootNavigator: true)
@@ -278,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           'Sign Out',
                           style: getTextStyle(
-                              16, FontWeight.w400, ColorManager.grayLight),
+                              16, FontWeight.w400, ColorManager.primaryBlack),
                         ),
                       ),
                     ),

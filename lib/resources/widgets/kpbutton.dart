@@ -6,6 +6,7 @@ class CustomButton extends StatelessWidget {
   final String buttonTitle;
   final VoidCallback? onPressed;
   final Gradient? gradient;
+  final EdgeInsetsGeometry? margin;
   final Color? color;
   final TextAlign? textAlign;
   final TextStyle? textStyle;
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
       this.gradient,
       this.textAlign,
       this.textStyle,
+        this.margin,
       this.border,this.leading,this.trailing,this.color,
       this.width});
 
@@ -28,7 +30,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 52,
-      margin: const EdgeInsets.all(40),
+      margin: margin,
       width: double.infinity,
       decoration: BoxDecoration(
         color: ColorManager.primaryBlue,
