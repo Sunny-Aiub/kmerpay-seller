@@ -5,7 +5,7 @@ import 'fonts.dart';
 
 TextStyle getTextStyle(
     double fontSize, FontWeight fontWeight, Color color) {
-  return GoogleFonts.poppins(
+  return GoogleFonts.inter(
       fontSize: fontSize,
       color: color,
       fontWeight: fontWeight);
@@ -26,6 +26,14 @@ TextStyle getSemiBoldStyle(
   return _getTextStyle(
       fontSize,  FontWeightManager.semiBold, color);
 }
+
+/// Semi Bold  style
+TextStyle getBoldStyle(
+    {required double fontSize, required Color color}) {
+  return _getTextStyle(
+      fontSize,  FontWeightManager.bold, color);
+}
+
 
 // regular style
 TextStyle getRegularStyle(

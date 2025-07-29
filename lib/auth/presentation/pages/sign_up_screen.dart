@@ -1,13 +1,19 @@
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:kmerpay_seller/auth/presentation/pages/sign_in_screen.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:kookit_delivery/auth/presentation/pages/sign_in_screen.dart';
 import 'package:unicons/unicons.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
 import '../../../resources/styles.dart';
+import '../../../resources/widgets/kpbutton.dart';
+import '../../data/models/area.dart';
 import '../widgets/search_field_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -21,19 +27,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _formKey = new GlobalKey<FormState>();
   var _emailController = TextEditingController();
   var _emailControllerFocus = FocusNode();
+
   var _passwordController = TextEditingController();
   var _passwordControllerFocus = FocusNode();
 
+  var _confirmPasswordController = TextEditingController();
+  var _confirmPasswordControllerFocus = FocusNode();
+
   TextEditingController _fnameController = TextEditingController();
+  var _fNameControllerFocus = FocusNode();
+
   TextEditingController _lnameController = TextEditingController();
+  var _lNameControllerFocus = FocusNode();
 
   TextEditingController _phoneController = TextEditingController();
   bool isPasswordVisible = false;
 
-  TextEditingController _confirmPasswordController = TextEditingController();
   bool isConfirmPasswordVisible = false;
 
   bool agreedToTerms = false;
+
+  List<AreaDatum>? items = [area1,area2];
+
+  AreaDatum? selectedValue;
 
   @override
   void initState() {
@@ -57,71 +73,202 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          sizeVer(140),
-                          Text("Create New Account",
-                              style: getTextStyle(
-                                  24, FontWeight.w700, ColorManager.deepBlack)),
-                          Text(
-                              "Enter the email associated with your account to change your password.",
-                              style: getTextStyle(
-                                  14, FontWeight.w400, ColorManager.grayLight)),
                           sizeVer(40),
+
+                          Text("Sign Up",
+                              style: getSemiBoldStyle(
+                                fontSize: 24,
+                                color: ColorManager.primary600,
+                              )),
+                          sizeVer(24),
+                          ///first name
+                          Text(
+                            "First Name",
+                            style: getSemiBoldStyle(
+                                fontSize: 14, color: ColorManager.gray700),
+                          ),
                           SearchWidget(
                             controller: _fnameController,
-                            prefixIcon: Icon(
-                              FeatherIcons.user,
-                              color: ColorManager.deepBlack,
-                            ),
-                            border: Border.all(color: ColorManager.grayBorder),
+                            focusNode: _fNameControllerFocus,
+                            border: Border.all(color: ColorManager.gray300),
+                            backgroundColor: Colors.white,
+                            isEnabled: true,
+                            hintText: 'you@example.com',
+                            focusedBorder:  OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                                borderSide: BorderSide(color: ColorManager.gray300)),
+                          ),
+                          sizeVer(24),
+                          ///last name
+                          Text(
+                            "Last Name",
+                            style: getSemiBoldStyle(
+                                fontSize: 14, color: ColorManager.gray700),
+                          ),
+                          SearchWidget(
+                            controller: _lnameController,
+                            focusNode: _lNameControllerFocus,
+                            border: Border.all(color: ColorManager.gray300),
                             backgroundColor: Colors.white,
                             isEnabled: true,
                             hintText: 'first name',
+                            focusedBorder:  OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                                borderSide: BorderSide(color: ColorManager.gray300)),
                           ),
-                          sizeVer(16),
-                          SearchWidget(
-                            controller: _lnameController,
-                            prefixIcon: Icon(
-                              FeatherIcons.user,
-                              color: ColorManager.deepBlack,
+                          sizeVer(24),
+
+                          ///zone
+                          Text(
+                            "Zone",
+                            style: getSemiBoldStyle(
+                                fontSize: 14, color: ColorManager.gray700),
+                          ),
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton2(
+                              isExpanded: true,
+                              hint: Row(
+                                children: [
+                                  // Icon(
+                                  //   Icons.list,
+                                  //   size: 16,
+                                  //   color: Colors.yellow,
+                                  // ),
+                                  // SizedBox(
+                                  //   width: 4,
+                                  // ),
+                                  Expanded(
+                                    child: Text(
+                                      'Select Area',
+                                      style: getRegularStyle(
+                                          fontSize: 14, color: ColorManager.gray300),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              items: items!
+                                  .map((item) => DropdownMenuItem<AreaDatum>(
+                                value: item,
+                                child: Text(
+                                  item.areaName.toString(),
+                                  style: getRegularStyle(
+                                      fontSize: 14, color: ColorManager.gray400),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ))
+                                  .toList(),
+                              value: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value as AreaDatum;
+                                  if (selectedValue != null) {
+                                    // isOutletLoading = true;
+                                  }else{
+                                    // Utils.displayToast("Select an address");
+                                  }
+                                });
+                              },
+                              icon: const Icon(
+                                FeatherIcons.chevronDown,
+                              ),
+                              iconSize: 14,
+                              iconEnabledColor: ColorManager.gray600,
+                              iconDisabledColor:  ColorManager.gray600,
+                              buttonHeight: 50,
+                              // buttonWidth: 160,
+                              buttonPadding: const EdgeInsets.only(left: 0, right: 14),
+                              buttonDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                  color: ColorManager.gray400,
+                                ),
+                                color: Colors.white,
+                              ),
+                              buttonElevation: 0,
+                              itemHeight: 40,
+                              itemPadding: const EdgeInsets.only(left: 16, right: 16),
+                              dropdownMaxHeight: double.infinity,
+                              // dropdownWidth: double.infinity,
+                              dropdownPadding: const EdgeInsets.only(left: 16, right: 16),
+                              dropdownDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                // color: Colors.redAccent,
+                              ),
+                              dropdownElevation: 8,
+                              scrollbarRadius: const Radius.circular(40),
+                              scrollbarThickness: 6,
+                              scrollbarAlwaysShow: true,
+                              offset: const Offset(0, 0),
                             ),
-                            border: Border.all(color: ColorManager.grayBorder),
-                            backgroundColor: Colors.white,
-                            isEnabled: true,
-                            hintText: 'last name',
                           ),
-                          sizeVer(16),
+                          sizeVer(24),
+
+                          ///email address
+                          Text(
+                            "Email Address",
+                            style: getSemiBoldStyle(
+                                fontSize: 14, color: ColorManager.gray700),
+                          ),
                           SearchWidget(
                             controller: _emailController,
-                            prefixIcon: Icon(
-                              FeatherIcons.send,
-                              color: ColorManager.deepBlack,
-                            ),
-                            border: Border.all(color: ColorManager.grayBorder),
+                            focusNode: _emailControllerFocus,
+                            border: Border.all(color: ColorManager.gray300),
                             backgroundColor: Colors.white,
                             isEnabled: true,
-                            hintText: 'email',
+                            hintText: 'you@example.com',
+                            focusedBorder:  OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                                borderSide: BorderSide(color: ColorManager.gray300)),
                           ),
-                          sizeVer(16),
+                          sizeVer(24),
+
+                          ///phone number
+                          Text(
+                            "Phone Number",
+                            style: getSemiBoldStyle(
+                                fontSize: 14, color: ColorManager.gray700),
+                          ),
                           SearchWidget(
                             controller: _phoneController,
-                            prefixIcon: Icon(
-                              FeatherIcons.phone,
-                              color: ColorManager.deepBlack,
-                            ),
                             border: Border.all(color: ColorManager.grayBorder),
                             backgroundColor: Colors.white,
                             isEnabled: true,
                             hintText: 'phone number',
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: ColorManager.gray50
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all( 12.0),
+                                  child: Text(
+                                    '+880',textAlign: TextAlign.center,
+                                    style: getRegularStyle(
+                                        fontSize: 14, color: ColorManager.gray500),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            focusedBorder:  OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                                borderSide: BorderSide(color: ColorManager.gray300)),
                           ),
-                          sizeVer(16),
+                          sizeVer(24),
+
+                          ///password
+                          Text(
+                            "Enter password",
+                            style: getSemiBoldStyle(
+                                fontSize: 14, color: ColorManager.gray700),
+                          ),
                           SearchWidget(
                             controller: _passwordController,
+                            focusNode: _passwordControllerFocus,
                             obscureText:
-                                isPasswordVisible == false ? true : false,
-                            prefixIcon: Icon(
-                              FeatherIcons.key,
-                              color: ColorManager.deepBlack,
-                            ),
+                            isPasswordVisible == false ? true : false,
+
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -130,148 +277,111 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                               icon: isPasswordVisible == false
                                   ? Icon(
-                                      FeatherIcons.eyeOff,
-                                      color: ColorManager.deepBlack,
-                                    )
+                                PhosphorIcons.eye,
+                                color: ColorManager.deepBlack,
+                              )
                                   : Icon(
-                                      FeatherIcons.eye,
-                                      color: ColorManager.deepBlack,
-                                    ),
+                                FeatherIcons.eyeOff,
+                                color: ColorManager.primary500,
+                              ),
                             ),
                             border: Border.all(color: ColorManager.grayBorder),
                             backgroundColor: Colors.white,
+                            focusedBorder:  OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
+                                borderSide: BorderSide(color: ColorManager.gray300)),
                             isEnabled: true,
-                            hintText: 'phone number',
+                            hintText: 'password',
                           ),
-                          sizeVer(16),
+                          sizeVer(24),
+
+                          ///confirm password
+                          Text(
+                            "Retype password",
+                            style: getSemiBoldStyle(
+                                fontSize: 14, color: ColorManager.gray700),
+                          ),
                           SearchWidget(
                             controller: _confirmPasswordController,
-                            obscureText: isConfirmPasswordVisible == false
-                                ? true
-                                : false,
-                            prefixIcon: Icon(
-                              FeatherIcons.key,
-                              color: ColorManager.deepBlack,
-                            ),
+                            focusNode: _confirmPasswordControllerFocus,
+                            obscureText:
+                            isConfirmPasswordVisible == false ? true : false,
+
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  isConfirmPasswordVisible =
-                                      !isConfirmPasswordVisible;
+                                  isConfirmPasswordVisible = !isConfirmPasswordVisible;
                                 });
                               },
                               icon: isConfirmPasswordVisible == false
                                   ? Icon(
-                                      FeatherIcons.eyeOff,
-                                      color: ColorManager.deepBlack,
-                                    )
+                                PhosphorIcons.eye,
+                                color: ColorManager.deepBlack,
+                              )
                                   : Icon(
-                                      FeatherIcons.eye,
-                                      color: ColorManager.deepBlack,
-                                    ),
+                                FeatherIcons.eyeOff,
+                                color: ColorManager.primary500,
+                              ),
                             ),
                             border: Border.all(color: ColorManager.grayBorder),
                             backgroundColor: Colors.white,
+                            focusedBorder:  OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
+                                borderSide: BorderSide(color: ColorManager.gray300)),
                             isEnabled: true,
-                            hintText: 'phone number',
+                            hintText: 'retype password',
                           ),
-                          sizeVer(16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    agreedToTerms = !agreedToTerms;
-                                  });
-                                },
-                                icon: agreedToTerms == false
-                                    ? const Icon(FeatherIcons.square)
-                                    : const Icon(FeatherIcons.checkSquare),
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.centerLeft,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  style: getTextStyle(14, FontWeight.w400,
-                                      ColorManager.deepBlack),
-                                  children: [
-                                    TextSpan(
-                                      text: 'I agree to the ',
-                                    ),
-                                    TextSpan(
-                                      text: 'Examtice ',
-                                      style: TextStyle(
-                                          color: ColorManager.brandColor),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          setState(() {
-                                            // mode = mode == AuthMode.login
-                                            //     ? AuthMode.register
-                                            //     : AuthMode.login;
-                                          });
-                                        },
-                                    ),
-                                    TextSpan(text: 'Terms & Condition')
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          sizeVer(40),
-                          Container(
-                            height: 52,
-                            margin: EdgeInsets.all(40),
+                          sizeVer(24),
+
+                          SizedBox(
                             width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: ColorManager.brandColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                            ),
-                            child: TextButton(
-                              child: Text(
-                                "Sign Up",
-                                style: getTextStyle(
-                                    16, FontWeight.w600, Colors.white),
-                              ),
-                              onPressed: () {
-                                // Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       fullscreenDialog: true,
-                                //       builder: (context) =>
-                                //       const SignUpScreen(), //const LandingScreen(),
-                                //     ));
-                              },
-                              // textColor: Colors.white,
-                              // shape: RoundedRectangleBorder(
-                              //   borderRadius: BorderRadius.circular(25),
-                              // ),
-                            ),
+                              child: SvgPicture.asset(AssetConstant.nidOrPassportIcon,)),
+                          sizeVer(24),
+                          SizedBox(
+                              width: double.infinity,
+                              child: SvgPicture.asset(AssetConstant.dropImageIcon)),
+
+                          sizeVer(40),
+                          CustomButton(
+                            buttonTitle: 'Sign Up',
+                            onPressed: () {
+
+                            },
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Already have an account? ",
-                                  style: getTextStyle(14, FontWeight.w400,
-                                      ColorManager.grayLight)),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        fullscreenDialog: true,
-                                        builder: (context) =>
-                                            const SignInScreen(), //const LandingScreen(),
-                                      ));
-                                },
-                                child: Text("Sign In",
-                                    style: getTextStyle(14, FontWeight.w600,
-                                        ColorManager.brandColor)),
-                              ),
-                            ],
+                          sizeVer(24),
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text("Already have an account? ",
+                                    style: getTextStyle(14, FontWeight.w400,
+                                        ColorManager.grayLight)),
+                                sizeVer(16),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          fullscreenDialog: true,
+                                          builder: (context) =>
+                                              const SignInScreen(), //const LandingScreen(),
+                                        ));
+                                  },
+                                  child: CustomButton(
+                                    buttonTitle: 'Sign In Here',color: ColorManager.primaryWhite,
+                                    border: Border.all(color: ColorManager.primary500),
+                                    textStyle: getBoldStyle(color: ColorManager.primary500,fontSize: 14),
+                                    onPressed: () {
+                                      Get.to(const SignInScreen());
+
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           sizeVer(40),
 

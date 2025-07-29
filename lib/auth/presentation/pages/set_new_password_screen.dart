@@ -1,15 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:kmerpay_seller/auth/presentation/pages/sign_in_screen.dart';
-import 'package:kmerpay_seller/resources/widgets/success_screen.dart';
+import 'package:kookit_delivery/auth/presentation/pages/sign_in_screen.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
 import '../../../resources/styles.dart';
 import '../../../resources/widgets/kpbutton.dart';
+import '../../../resources/widgets/success_screen.dart';
 import '../widgets/search_field_widget.dart';
-import 'landing_screen.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

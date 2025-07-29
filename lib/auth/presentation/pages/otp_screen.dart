@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:kmerpay_seller/auth/presentation/pages/set_new_password_screen.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:kmerpay_seller/resources/widgets/kpbutton.dart';
+import 'package:kookit_delivery/auth/presentation/pages/set_new_password_screen.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
 import '../../../resources/styles.dart';
+import '../../../resources/widgets/kpbutton.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({Key? key}) : super(key: key);

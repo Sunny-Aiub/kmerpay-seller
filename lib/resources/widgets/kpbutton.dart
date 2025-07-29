@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kmerpay_seller/resources/colors.dart';
-import 'package:kmerpay_seller/resources/styles.dart';
+
+import '../colors.dart';
+import '../styles.dart';
+
 
 class CustomButton extends StatelessWidget {
   final String buttonTitle;
@@ -12,6 +14,7 @@ class CustomButton extends StatelessWidget {
   final TextStyle? textStyle;
   final BoxBorder? border;
   final double? width;
+  final double? height;
   final Widget? leading;
   final Widget? trailing;
 
@@ -23,24 +26,25 @@ class CustomButton extends StatelessWidget {
       this.textAlign,
       this.textStyle,
         this.margin,
-      this.border,this.leading,this.trailing,this.color,
+      this.border,this.leading,this.trailing,this.color,this.height,
       this.width});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 52,
+      height: height ?? 52,
       margin: margin,
-      width: double.infinity,
+      width: width ?? double.infinity,
       decoration: BoxDecoration(
-        color: ColorManager.primaryBlue,
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        color: color ?? ColorManager.primary500,
+        borderRadius: const BorderRadius.all(Radius.circular(1)),
+        border: border,
       ),
       child: ListTile(
         onTap: onPressed,
-        leading: leading,trailing: trailing,
+        leading: leading,trailing: trailing,dense: true,minVerticalPadding:0,
         title: Text(
-          buttonTitle,textAlign:TextAlign.center,style: getTextStyle(16, FontWeight.w600, Colors.white),),
+          buttonTitle,textAlign:TextAlign.center,style: textStyle ?? getBoldStyle(color: ColorManager.primaryWhite,fontSize: 14),),
         // textColor: Colors.white,
         // shape: RoundedRectangleBorder(
         //   borderRadius: BorderRadius.circular(25),

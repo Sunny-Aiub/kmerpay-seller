@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kmerpay_seller/resources/colors.dart';
-import 'package:kmerpay_seller/resources/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants.dart';
+import '../styles.dart';
+import '../colors.dart';
 import 'kpbutton.dart';
 
 class SuccessWidget extends StatelessWidget {

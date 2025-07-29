@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:kmerpay_seller/auth/presentation/pages/sign_in_screen.dart';
-import 'package:kmerpay_seller/resources/colors.dart';
 
+import '../../../auth/presentation/pages/sign_in_screen.dart';
+import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
 import '../../../resources/styles.dart';
 import '../../../resources/widgets/kpbutton.dart';

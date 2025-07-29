@@ -16,12 +16,22 @@ Widget verticalDivider({ EdgeInsets? padding}){
     padding: padding ?? const EdgeInsets.symmetric(
         horizontal: 24.0, vertical: 20),
     child: Container(
-      color: ColorManager.offWhite,
+      color: ColorManager.blueTextColor,
       height: 1,
     ),
   );
 }
 
+Widget horizontalDivider({ EdgeInsets? padding, double? width,Color? color}){
+  return Padding(
+    padding: padding ?? const EdgeInsets.symmetric(
+        horizontal: 24.0, vertical: 20),
+    child: Container(
+      color: color ?? ColorManager.gray500,
+      height: 1,width: width ?? 70,
+    ),
+  );
+}
 class PaddingConstant{
   static const  v12h16symmetricPadding = EdgeInsets.symmetric(vertical: 12,horizontal: 16);
   static const  h16Padding = EdgeInsets.symmetric(vertical: 0,horizontal: 16);
@@ -80,12 +90,33 @@ class ScreenRouteConst {
 
 class AssetConstant {
 
+  ///icons
   static const String logoIcon = "assets/icons/logo.svg";
+  static const String logoTextIcon = "assets/icons/text_logo.svg";
   static const String splashIcon = "assets/icons/splash-icon.svg";
-  static const String splashImage = "assets/images/splash.jpg";
+
+  static const String requestIcon = "assets/icons/ic_request.svg";
+  static const String pendingIcon = "assets/icons/ic_pending.svg";
+  static const String inProgressIcon = "assets/icons/ic_progress.svg";
+  static const String completeDeliveryIcon = "assets/icons/ic_complete.svg";
+
+  static const String dividerIcon = "assets/icons/divider.svg";
+
+
+
+  ///images
+  static const String profileImage = "assets/images/profile.svg";
+  static const String splashImage = "assets/images/logo.png";
   static const String loginIcon = "assets/icons/login_icon.svg";
+  static const String nidOrPassportIcon = "assets/images/drop_nid_or_passport.svg";
+  static const String dropImageIcon = "assets/images/drop_image.svg";
   static const String codeVerifiedIcon = "assets/icons/code_verified_icon.svg";
   static const String successIcon = "assets/icons/success_icon.svg";
+
+
+  static const String detailsBackground = "assets/images/details_background.png";
+
+
 
   static const String slider1 = "assets/images/onbording_sliders/slider1.png";
   static const String slider2 = "assets/images/onbording_sliders/slider2.png";

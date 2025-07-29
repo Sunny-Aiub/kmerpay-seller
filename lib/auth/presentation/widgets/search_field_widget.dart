@@ -11,7 +11,7 @@ class SearchWidget extends StatelessWidget {
   final bool isEnabled ;
   final Color? backgroundColor;
   final BoxBorder? border;
-  final Icon? prefixIcon;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String? hintText;
   final bool? obscureText;
@@ -35,7 +35,7 @@ class SearchWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           boxShadow: (focusNode?.hasFocus == true) ? [
             BoxShadow(
-              color: ColorManager.primaryBlue.withOpacity(0.18),
+              color: ColorManager.primary500.withOpacity(0.18),
               offset: Offset(0, 6),
               blurRadius: 20,
               spreadRadius: 0,
@@ -49,16 +49,16 @@ class SearchWidget extends StatelessWidget {
         enabled: isEnabled,keyboardType: keyboardType ?? TextInputType.text,
         focusNode: focusNode,
         obscureText: obscureText ?? false,
-        style:getRegularStyle(fontSize: 14,color: ColorManager.silver),
+        style:getRegularStyle(fontSize: 14,color: ColorManager.gray500),
         decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                borderSide: BorderSide(color: ColorManager.offWhite)),
+                borderSide: BorderSide(color: ColorManager.gray300)),
             focusedBorder: focusedBorder,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             contentPadding: const EdgeInsets.all(12.0),
-            hintStyle: getRegularStyle(fontSize: 12,color: ColorManager.silver),
+            hintStyle: getRegularStyle(fontSize: 12,color: ColorManager.gray500),
             hintText: hintText ?? "Search here",
             // hintStyle: getRegularStyle(
             //     fontSize: 14,color: ColorManager.gray400

@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:kookit_delivery/auth/presentation/widgets/search_field_widget.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
@@ -19,161 +22,156 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isAlertOn = true;
   bool isDarkModeOn = false;
 
+  final TextEditingController _fnameController = TextEditingController();
+
+  final TextEditingController _lnameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorManager.lightWhite,
         appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: ColorManager.lightWhite,
-          title: Text(
-            'My Profile',
-            style: getSemiBoldStyle(
-                fontSize: 20, color: ColorManager.primaryBlack),
+          elevation: 1,
+          leading: InkWell(
+            onTap: () => Get.back(),
+            child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 20.0,
+                  left: 0.0,
+                  bottom: 20.0,
+                  right: 0.0,
+                ),
+                  child: Icon(
+                    FeatherIcons.arrowLeft,
+                    color: ColorManager.primary500,
+                )),
           ),
+          centerTitle: false,
+          titleSpacing: 0,
+          title: Text('Profile',
+              style:
+                  getRegularStyle(fontSize: 18, color: ColorManager.black700)),
+          backgroundColor: Colors.white,
         ),
         body: Stack(
           children: [
-            CustomScrollView(slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    sizeVer(40),
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 43,
-                      child: Image.asset('assets/images/human.png'),
-                    ),
-                    sizeVer(16),
-                    Text('John Doe',
-                        style: getSemiBoldStyle(
-                            fontSize: 14, color: ColorManager.primaryBlack)),
-                    Text('johndoe@gmail.com',
-                        style: getRegularStyle(
-                            fontSize: 16,
-                            color: ColorManager.bluishGrey)),
-
-                    sizeVer(16),
-                    Container(
-                      width: 160,height: 40,
-                      decoration: BoxDecoration(
-                          color: ColorManager.primaryBlue,
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(PhosphorIcons.pencil_line,color: ColorManager.primaryWhite,),
-                          Text('Edit Profile',
-                              style: getRegularStyle(
-                                  fontSize: 16,
-                                  color: ColorManager.primaryWhite)),
-
-                        ],
-                      )
-                    ),
-                    verticalDivider(),
-                  ],
-                ),
-              ),
-
-              ///General
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ///email
-                          Text(
-                            'Email address',
-                            style: getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),
-                          ),
-                          Text(
-                            'johndoe@gmail.com',
-                            style: getRegularStyle(fontSize: 16, color: ColorManager.primaryBlack),
-                          ),
-                          verticalDivider(padding:EdgeInsets.symmetric(vertical: 20)),
-
-                          ///mobile
-                          Text(
-                            'Mobile number',
-                            style: getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),
-                          ),
-                          Text(
-                            '+237 123 123 1234',
-                            style: getRegularStyle(fontSize: 16, color: ColorManager.primaryBlack),
-                          ),
-                          verticalDivider(padding:EdgeInsets.symmetric(vertical: 20)),
-
-                          ///Address
-                          Text(
-                            'Address',
-                            style: getRegularStyle(fontSize: 14, color: ColorManager.bluishGrey),
-                          ),
-                          Text(
-                            'House:5, Road: 15, Block: B, Southside',
-                            style: getRegularStyle(fontSize: 16, color: ColorManager.primaryBlack),
-                          ),
-                          verticalDivider(padding:EdgeInsets.symmetric(vertical: 20)),
-
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-
-
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 0.0, vertical: 8),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const OnBordingScreen();
-                              },
+            CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        sizeVer(32),
+                        Center(
+                          child: CircleAvatar(
+                            backgroundColor: ColorManager.primary500,
+                            radius: 30,
+                            child: SvgPicture.asset(
+                              "assets/images/profile.svg",
+                              height: 68,
+                              width: 68,
                             ),
-                            (_) => false,
-                          );
-                        },
-                        leading: Icon(
-                          PhosphorIcons.sign_out,
-                          color: ColorManager.brandColor,
+                          ),
                         ),
-                        title: Text(
-                          'Sign Out',
-                          style: getTextStyle(
-                              16, FontWeight.w400, ColorManager.primaryBlack),
+                        sizeVer(8),
+                        Center(
+                          child: InkWell(
+                            onTap: () => Navigator.pushNamed(
+                                context, ScreenRouteConst.changePasswordScreen),
+                            child: Container(
+                              height: 22,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.primary500,
+                                  ),
+                              child: Center(
+                                child: Text(
+                                  'Upload Image',style: getSemiBoldStyle(fontSize: 10, color: ColorManager.primaryWhite)
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          "First Name",
+                          style: getSemiBoldStyle(
+                              fontSize: 14, color: ColorManager.gray700),
+                        ),
+                        sizeVer(4),
+                        SearchWidget(
+                          controller: _fnameController,
+                          border: Border.all(color: ColorManager.gray300),
+                          backgroundColor: ColorManager.primaryWhite,
+                          isEnabled: false,
+                          hintText: 'John Albert',
+                        ),
+                        sizeVer(16),
+                        Text(
+                          "Last Name",
+                          style: getSemiBoldStyle(
+                              fontSize: 14, color: ColorManager.gray700),
+                        ),
+                        sizeVer(4),
+                        SearchWidget(
+                          controller: _lnameController,
+                          border: Border.all(color: ColorManager.gray300),
+                          backgroundColor: ColorManager.primaryWhite,
+                          isEnabled: false,
+                          hintText: 'Albert',
+                        ),
+                        sizeVer(16),
+                        Text(
+                          "Phone",
+                          style: getSemiBoldStyle(
+                              fontSize: 14, color: ColorManager.gray700),
+                        ),
+                        sizeVer(4),
+                        SearchWidget(
+                          controller: _phoneController,
+                          border: Border.all(color: ColorManager.gray300),
+                          backgroundColor: ColorManager.primaryWhite,
+                          isEnabled: false,
+                          hintText: '+88012132132131',
+                        ),
+                        sizeVer(32),
+                        Center(
+                          child: InkWell(
+                            onTap: () => Navigator.pushNamed(
+                                context, ScreenRouteConst.changePasswordScreen),
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width - 16,
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: ColorManager.primary500),
+                                // color: ColorManager.gray800,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 8),
+                                child: Text(
+                                  'Change Password',
+                                  textAlign: TextAlign.center,
+                                  style: getBoldStyle(
+                                    fontSize: 14,
+                                    color: ColorManager.primary500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ],
         ),
       ),

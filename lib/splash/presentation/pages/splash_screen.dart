@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kmerpay_seller/resources/styles.dart';
-
+import 'package:kookit_delivery/auth/presentation/pages/sign_in_screen.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/constants.dart';
+import '../../../resources/styles.dart';
 import 'on_bording_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
               MaterialPageRoute(
                 fullscreenDialog: true,
                 builder: (context) =>
-                    const OnBordingScreen(), //const LandingScreen(),
+                    const SignInScreen(), //const LandingScreen(),
               ));
           return;
         }
@@ -58,16 +58,16 @@ class _SplashScreenState extends State<SplashScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-              color: ColorManager.backBlue
+              color: ColorManager.primary500
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 // SvgPicture.asset(AssetConstant.splashIcon, fit: BoxFit.fill,),
                 Padding(
-                  padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height/3),
-                  child: SvgPicture.asset(AssetConstant.logoIcon,height: 85,width: 104,),
+                  padding:  EdgeInsets.only(top: 0),
+                  child: Image.asset(AssetConstant.splashImage,fit: BoxFit.contain,),
                 ),
 
                 Padding(
@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Padding(
                         padding: const EdgeInsets.only(bottom: 32.0),
                         child: Text(
-                          'Making Payment a Lot Easier',
+                          'Kook it Delivery App',
                           style: getTextStyle(
                               18, FontWeight.w500, ColorManager.primaryWhite),
                         )),
